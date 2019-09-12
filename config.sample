@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set +x
+
+MIRROR_BASE_URL=rsync://archive.ubuntu.com/ubuntu
+MIRROR_DIR=$BASE_DIR/mirror
+HTTP_SERVER_PORT=8000

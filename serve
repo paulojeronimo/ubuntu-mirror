@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set +x
+
+BASE_DIR=`cd "$(dirname "$0")"; pwd`
+
+CONFIG=$BASE_DIR/config
+source "$CONFIG" 2> /dev/null || {
+  CONFIG=$CONFIG.sample
+  source "$CONFIG" 2> /dev/null || {
+    echo "File \"$CONFIG\" was not found!"
+    exit 1
+  }
+}
+
+ruby -run -e httpd "$MIRROR_DIR" -p $HTTP_SERVER_PORT

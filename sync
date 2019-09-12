@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set +x
+
+BASE_DIR=`cd "$(dirname "$0")"; pwd`
+
+CONFIG=$BASE_DIR/config
+source "$CONFIG" 2> /dev/null || {
+  CONFIG=$CONFIG.sample
+  source "$CONFIG" 2> /dev/null || {
+    echo "File \"$CONFIG\" was not found!"
+    exit 1
+  }
+}
+
+mkdir -p "$MIRROR_DIR" && cd $_
+
+_rsync() {
+  mkdir -p $1
+  rsync -avzy --delete-after --progress $MIRROR_BASE_URL/$1/ $1/
+}
+
+_rsync dists/bionic
+_rsync dists/bionic-updates
+_rsync dists/bionic-security
+_rsync dists/bionic-proposed
+_rsync dists/bionic-backports
+
+_rsync pool
