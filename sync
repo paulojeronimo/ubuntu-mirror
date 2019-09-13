@@ -12,7 +12,7 @@ source "$CONFIG" 2> /dev/null || {
   }
 }
 
-mkdir -p "$MIRROR_DIR" && cd $_
+mkdir -p "$MIRROR_DIR" && cd "$_"
 
 _rsync() {
   mkdir -p $1
